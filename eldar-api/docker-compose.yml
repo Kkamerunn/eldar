@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+    mysqldbeldar:
+        image: mysql
+        container_name: mysql_db_eldar
+        environment:
+            - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+            - MYSQL_DATABASE=${DB_DATABASE}
+        ports:
+            - "3306:3306"
