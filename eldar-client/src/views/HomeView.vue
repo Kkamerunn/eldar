@@ -9,10 +9,7 @@
         class="w-25 mx-auto"
       />
       <template v-if="users.length > 0">
-        <div v-for="user in users" :key="user.id" class="card">
-          <p>{{ user.name }}</p>
-          <p>{{ user.credits }}</p>
-        </div>
+        <Card v-for="user in users" :key="user.id" :user="user" />
       </template>
     </div>
   </BasicLayout>
@@ -23,12 +20,14 @@ import axiosClient from "../config/axios";
 import BasicLayout from "../layouts/BasicLayout.vue";
 import Alert from "../components/Alert.vue";
 import { getTokenApi } from "../api/token";
+import Card from "../components/Card.vue";
 
 export default {
   name: "HomeView",
   components: {
     BasicLayout,
     Alert,
+    Card,
   },
   data() {
     return {
@@ -46,6 +45,7 @@ export default {
           },
         });
         this.users = data;
+        this.$store.dispatch("addUsers", data);
       } catch (error) {
         console.log(error);
       }
@@ -84,23 +84,6 @@ $white: white;
 
   .w-25 {
     width: 25%;
-  }
-  .card {
-    background-color: $light-blue;
-    border-radius: $b-radius-xs;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 25%;
-    margin: 1rem auto;
-
-    p {
-      color: $white;
-      font-weight: bold;
-    }
   }
 }
 </style>

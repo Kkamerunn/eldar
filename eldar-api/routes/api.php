@@ -17,7 +17,8 @@ use App\Http\Controllers\UserController;
 */
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('/users', [UserController::class, 'getUsers']);
+    // Users CRUD routes
+    Route::apiResource('/users', UserController::class); 
 
     // Logout route
     Route::post('/logout', [AuthController::class, 'logout']);

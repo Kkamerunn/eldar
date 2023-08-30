@@ -14,6 +14,23 @@ const deleteUserApi = () => {
   localStorage.removeItem(USER);
 };
 
+export const setUserCreditsApi = async (credits, id) => {
+  try {
+    const { data } = await axiosClient.put(
+      `/users/${id}`,
+      { credits },
+      {
+        headers: {
+          Authorization: `Bearer ${getTokenApi()}`,
+        },
+      }
+    );
+    console.log(data);
+  } catch (error) {
+    console.log(error.response.data.message);
+  }
+};
+
 // The register method for the user to sign up
 export const registerAPI = async (formData) => {
   // Get all the form fields values
