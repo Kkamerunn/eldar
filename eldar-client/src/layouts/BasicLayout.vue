@@ -18,13 +18,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.layout {
-  min-width: 100%;
-  min-height: 100vh;
-
-  .container {
-    padding: 1.5rem;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

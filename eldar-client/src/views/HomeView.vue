@@ -1,7 +1,7 @@
 <template>
   <BasicLayout>
     <div class="home">
-      <h1 v-if="currentUser">Welcome {{ currentUser.name }}!</h1>
+      <h1 v-if="currentAuthUser">Welcome {{ currentAuthUser.name }}!</h1>
       <Alert
         v-if="loading"
         type="success"
@@ -21,6 +21,7 @@ import BasicLayout from "../layouts/BasicLayout.vue";
 import Alert from "../components/Alert.vue";
 import { getTokenApi } from "../api/token";
 import Card from "../components/Card.vue";
+import { getUserApi } from "../api/user";
 
 export default {
   name: "HomeView",
@@ -53,8 +54,8 @@ export default {
     },
   },
   computed: {
-    currentUser() {
-      return this.$store.getters.getCurrentUser;
+    currentAuthUser() {
+      return getUserApi();
     },
   },
   mounted() {
@@ -65,25 +66,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$light-blue: #34b7eb;
-$m-auto: 0 auto;
-$xs: 0.5rem;
-$md: 1.5rem;
-$b-radius-xs: 0.6rem;
-$b-radius-base: 1.3rem;
-$white: white;
-
 .home {
   h1 {
     text-align: center;
-  }
-
-  .mx-auto {
-    margin: $m-auto;
-  }
-
-  .w-25 {
-    width: 25%;
   }
 }
 </style>

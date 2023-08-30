@@ -85,6 +85,16 @@ export default {
       loading: false,
     };
   },
+  watch: {
+    formError() {
+      setTimeout(() => {
+        this.formError = "";
+      }, 3000);
+      clearTimeout(() => {
+        this.formError = "";
+      }, 3000);
+    },
+  },
   computed: {
     formSubmitHandler() {
       return this.isRegisterForm === true
@@ -123,12 +133,7 @@ export default {
       }
 
       this.loading = false;
-
-      if (this.formError !== null) {
-        setTimeout(() => {
-          this.formError = null;
-        }, 8000);
-      }
+      this.formData = {};
     },
     async login() {
       this.loading = true;
@@ -138,16 +143,12 @@ export default {
         this.$store.dispatch("addCurrentUser", user);
         if (getTokenApi()) return this.$router.push("/home");
       } catch (error) {
-        console.log(error);
         this.formError = error.message;
         this.loading = false;
       }
 
-      if (this.formError !== null) {
-        setTimeout(() => {
-          this.formError = null;
-        }, 8000);
-      }
+      this.loading = false;
+      this.formData = {};
     },
   },
   mounted() {
@@ -156,78 +157,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-$light-blue: #34b7eb;
-$m-auto: 0 auto;
-$xs: 0.5rem;
-$md: 1.5rem;
-$b-radius-xs: 0.6rem;
-$b-radius-base: 1.3rem;
-$white: white;
-
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-
-  .form {
-    padding: $xs $md;
-    border: 2px solid $light-blue;
-    border-radius: $b-radius-base;
-    width: 25%;
-    margin: $m-auto;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-
-    .flex {
-      display: flex;
-      margin: 1.5rem 0;
-    }
-
-    .flex-col {
-      flex-direction: column;
-    }
-
-    .label {
-      color: $light-blue;
-      font-weight: bold;
-      margin-bottom: $xs;
-      text-align: start;
-    }
-
-    .input,
-    .submit {
-      padding: $xs;
-      border: 1px solid $light-blue;
-      border-radius: $b-radius-xs;
-    }
-
-    .input:focus,
-    .input:active {
-      border: 2px solid $light-blue;
-      outline-width: 0;
-    }
-
-    .submit {
-      width: 100%;
-      color: $white;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-bottom: $md;
-      background-color: $light-blue;
-      cursor: pointer;
-    }
-  }
-
-  .link,
-  p {
-    color: $light-blue;
-  }
-
-  .link {
-    font-weight: bold;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

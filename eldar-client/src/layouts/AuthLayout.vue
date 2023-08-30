@@ -11,9 +11,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.layout {
-  min-width: 100%;
-  min-height: 100vh;
-}
-</style>
+<style lang="scss" scoped></style>

@@ -18,23 +18,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-$light-blue: #34b7eb;
-
-.navbar {
-  padding: 5px;
-  background-color: $light-blue;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-
-  .btn {
-    background-color: transparent;
-    border: 0;
-    color: white;
-    padding: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

@@ -7,7 +7,7 @@ const setUserApi = (user) => {
 };
 
 export const getUserApi = () => {
-  return localStorage.getItem(USER);
+  return JSON.parse(localStorage.getItem(USER));
 };
 
 const deleteUserApi = () => {
@@ -25,7 +25,7 @@ export const setUserCreditsApi = async (credits, id) => {
         },
       }
     );
-    console.log(data);
+    return data;
   } catch (error) {
     console.log(error.response.data.message);
   }
@@ -45,18 +45,23 @@ export const registerAPI = async (formData) => {
   };
 
   // Send the request to the API with the data from the form fields values
-  // and finally save the returned token to the localstorage
-  const { data } = await axiosClient.post("/register", newUserData);
-  setTokenApi(data.token);
+  try {
+    const { data } = await axiosClient.post("/register", newUserData);
 
-  const newUser = {
-    id: data.user.id,
-    name: data.user.name,
-    rol: data.user.rol,
-    credits: data.user.credits,
-  };
-  setUserApi(newUser);
-  return newUser;
+    setTokenApi(data.token);
+
+    const newUser = {
+      id: data.user.id,
+      name: data.user.name,
+      rol: data.user.rol,
+      credits: data.user.credits,
+    };
+    // and finally save the returned token to the localstorage
+    setUserApi(newUser);
+    return newUser;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
 };
 
 // Sign in method
@@ -70,18 +75,22 @@ export async function loginAPI(formData) {
     password,
   };
 
-  // Send the request to the API with the data from the form fields values
-  // and finally save the returned token to the localstorage
-  const { data } = await axiosClient.post("/login", userData);
-  setTokenApi(data.token);
-  const user = {
-    id: data.user.id,
-    name: data.user.name,
-    rol: data.user.rol,
-    credits: data.user.credits,
-  };
-  setUserApi(user);
-  return user;
+  try {
+    // Send the request to the API with the data from the form fields values
+    const { data } = await axiosClient.post("/login", userData);
+    setTokenApi(data.token);
+    const user = {
+      id: data.user.id,
+      name: data.user.name,
+      rol: data.user.rol,
+      credits: data.user.credits,
+    };
+    // and finally save the returned token to the localstorage
+    setUserApi(user);
+    return user;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
 }
 
 // Log out method

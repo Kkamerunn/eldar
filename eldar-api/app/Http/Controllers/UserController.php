@@ -81,7 +81,8 @@ class UserController extends Controller
         $user->save();
 
         return [
-            'message' => "Credits updated succesfully!"
+            'message' => "Credits updated succesfully!",
+            'credits' => $user->credits,
         ];
     }
 
